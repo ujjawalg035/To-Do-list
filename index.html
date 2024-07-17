@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    #todo-list {
+      width: 300px;
+      margin-top: 150px;
+      margin-left: 500px;
+      border: 1px solid #000000;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.1);
+      background-color: lightgoldenrodyellow;
+    }
+
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      text-decoration: none;
+      color: red;
+    }
+    
+
+    .task label {
+      flex: 1;
+      margin-left: 10px;
+    }
+
+    .task.completed label {
+      text-decoration: line-through;
+      color:black;
+    }
+
+    .delete-button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button{
+        background-color: lightblue;
+    }
+
+    .delete-button:hover {
+      background-color: #080707;
+    }
+  </style>
+</head>
+<body>
+  <div id="todo-list">
+    <h1>To-Do List</h1>
+    <input type="text" id="new-task" placeholder="Enter task...">
+    <button onclick="addTask()">Add</button>
+    <div id="tasks">
+      <!-- Tasks will be added dynamically here -->
+    </div>
+  </div>
+
+  <script>
+    function addTask() {
+      const newTaskText = document.getElementById("new-task").value;
+      if (newTaskText.trim() !== "") {
+        const taskList = document.getElementById("tasks");
+        const taskDiv = document.createElement("div");
+        taskDiv.classList.add("task");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.onclick = function () {
+          taskDiv.classList.toggle("completed", this.checked);
+        };
+
+        const taskLabel = document.createElement("label");
+        taskLabel.innerText = newTaskText;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button");
+        deleteButton.innerText = "Delete";
+        deleteButton.onclick = function () {
+          taskDiv.remove();
+        };
+
+        taskDiv.appendChild(checkbox);
+        taskDiv.appendChild(taskLabel);
+        taskDiv.appendChild(deleteButton);
+        taskList.appendChild(taskDiv);
+
+        document.getElementById("new-task").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
